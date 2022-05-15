@@ -2,23 +2,27 @@
 <html>
 	<%- include("head.ejs") %>
 	<body>
-    <%- include("logo.ejs") %>
-    <main>
-      <%- include("nav.ejs") %>
+		<%- include("logo.ejs") %>
+		<main>
+			<%- include("nav.ejs") %>
 
-      <div id="home-main">
-        <p>Welcome to Fridge Inventory App, a simple Express app.</p>
-        
-        <p>Your fridge has <span class="num-span"><%= items %></span>  items from <span class="num-span"><%= categories %></span> categories!</p>
-      </div>
+			<div id="home-main">
+				<p>Welcome to Fridge Inventory App, a simple Express app.</p>
 
-      <div id="home-fridge-pic">
-        <img src="/images/fridge.png" alt="">
+				<p>
+					Your fridge has
+					<span class="num-span"><%= items %></span>
+					items from
+					<span class="num-span"><%= categories %></span>
+					categories!
+				</p>
+			</div>
 
-      </div>
+			<div id="home-fridge-pic">
+				<img src="/images/fridge.png" alt="" />
+			</div>
+		</main>
 
-    </main>
-
-    <%- include("footer.ejs") %>
-  </body>
+		<%- include("footer.ejs") %>
+	</body>
 </html>
