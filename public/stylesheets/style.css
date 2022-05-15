@@ -1,4 +1,166 @@
-*, *::before, *::after {
-  padding: 0px;
-  margin: 0px;
+*,
+*::before,
+*::after {
+	padding: 0px;
+	margin: 0px;
+	font-family: "Roboto", sans-serif;
+}
+
+html {
+	display: flex;
+	min-height: 100%;
+	flex-direction: column;
+	align-items: center;
+	padding-left: 0px;
+	padding-right: 0px;
+}
+
+body {
+	width: 100%;
+	max-width: 1600px;
+	flex: 1;
+}
+
+a {
+	text-decoration: none;
+	color: inherit;
+}
+
+#logo-div {
+	display: flex;
+	align-items: center;
+	font-size: 24px;
+	height: 50px;
+	padding-bottom: 10px;
+	padding-left: 15px;
+	padding-right: 15px;
+	border-bottom: 1px solid black;
+	gap: 20px;
+	padding-top: 10px;
+}
+
+#logo-div a {
+	display: flex;
+	align-items: center;
+	gap: 5px;
+}
+
+#logo-img {
+	height: 30px;
+	width: 30px;
+}
+
+#nav {
+	padding-top: 10px;
+	font-size: 18px;
+	line-height: 25px;
+	max-width: 100%;
+	border-bottom: 1px black solid;
+	padding-bottom: 10px;
+	padding-left: 20px;
+	padding-right: 20px;
+}
+
+#nav {
+	display: flex;
+	flex-direction: column;
+}
+
+#nav-mobile-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+#nav-mobile-list a:hover {
+	color: red;
+}
+
+#home-main {
+	padding-top: 30px;
+	padding-left: 20px;
+	padding-right: 20px;
+	font-size: 30px;
+	text-align: center;
+}
+
+#home-main > * {
+	margin-bottom: 50px;
+}
+
+.num-span {
+	color: red;
+}
+
+#home-fridge-pic {
+	display: flex;
+	justify-content: center;
+}
+
+#home-fridge-pic img {
+	max-width: 300px;
+	max-height: 300px;
+}
+
+footer {
+  position: absolute;
+	bottom: 0px;
+  height: 30px;
+	width: 100%;
+	text-align: center;
+	font-size: 25px;
+}
+
+footer a {
+	color: black;
+  height: 25px;
+  width: 25px;
+}
+
+footer a img {
+  width: 25px;
+  height: 25px;
+}
+
+footer a:hover {
+  color: red;
+}
+
+@media (max-width: 785px) {
+	#home-main {
+		font-size: 26px;
+	}
+}
+
+@media (max-width: 685px) {
+	#home-main {
+		font-size: 22px;
+	}
+
+	#home-main > * {
+		margin-bottom: 30px;
+	}
+}
+
+@media (max-width: 586px) {
+	#home-main {
+		font-size: 18px;
+	}
+}
+
+@media (max-width: 430px) {
+	#nav-mobile-list {
+		font-size: 15px;
+	}
+}
+
+@media (max-width: 350px) {
+	#nav-mobile-list {
+		font-size: 12px;
+	}
+}
+
+@media (max-width: 320px) {
+	#logo-div {
+		font-size: 20px;
+	}
 }
