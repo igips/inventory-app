@@ -3,8 +3,9 @@
 	<%- include("head.ejs") %>
 	<body>
 		<%- include("logo.ejs") %>
+    <%- include("nav.ejs") %>
 		<main>
-			<%- include("nav.ejs") %>
+			
 
 			<div id="home-main">
 				<p>Welcome to Fridge Inventory App, a simple Express app.</p>
@@ -16,11 +17,13 @@
 					<span class="num-span"><%= categories %></span>
 					categories!
 				</p>
+
+        <div id="home-fridge-pic">
+          <img src="/images/fridge.png" alt="" />
+        </div>
 			</div>
 
-			<div id="home-fridge-pic">
-				<img src="/images/fridge.png" alt="" />
-			</div>
+			
 		</main>
 
 		<%- include("footer.ejs") %>
