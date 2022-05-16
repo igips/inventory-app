@@ -51,6 +51,8 @@ a {
 }
 
 #nav {
+  display: flex;
+	flex-direction: column;
 	padding-top: 10px;
 	font-size: 18px;
 	line-height: 25px;
@@ -61,10 +63,6 @@ a {
 	padding-right: 20px;
 }
 
-#nav {
-	display: flex;
-	flex-direction: column;
-}
 
 #nav-mobile-list {
 	display: flex;
@@ -91,11 +89,6 @@ a {
 	color: red;
 }
 
-#home-fridge-pic {
-	display: flex;
-	justify-content: center;
-}
-
 #home-fridge-pic img {
 	max-width: 300px;
 	max-height: 300px;
@@ -108,6 +101,7 @@ footer {
 	width: 100%;
 	text-align: center;
 	font-size: 25px;
+  max-width: 1600px;
 }
 
 footer a {
@@ -163,4 +157,26 @@ footer a:hover {
 	#logo-div {
 		font-size: 20px;
 	}
+}
+
+@media (max-width: 300px) {
+  #home-fridge-pic img {
+    max-width: 280px;
+    max-height: 300px;
+  }
+
+  #logo-div {
+    padding-left: 5px;
+    padding-right: 5px;
+  }
+
+  #nav {
+    padding-left: 10px;
+	  padding-right: 10px;
+  }
+  
+
+  
+
+
 }
