@@ -30,8 +30,20 @@ exports.items_list = (req, res, next) => {
 		});
 };
 
-exports.item_details = (req, res) => {
-	res.send("NOT IMPLEMENTED: Item details: " + req.params.id);
+exports.item_details = (req, res, next) => {
+	Item.findById(req.params.id)
+		.populate("category")
+		.exec((err, result) => {
+			if (err) {
+				return next(err);
+			}
+			if (result === null) {
+				const err = new Error("Item not found!");
+				err.status = 404;
+				return next(err);
+			}
+			res.render("itemDetails", { item: result });
+		});
 };
 
 exports.item_add_get = (req, res) => {
