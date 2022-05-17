@@ -2,28 +2,24 @@
 <html>
 	<%- include("head.ejs") %>
 	<body>
-		<%- include("logo.ejs") %>
-    <%- include("nav.ejs") %>
+		<%- include("logo.ejs") %> <%- include("nav.ejs") %>
 		<main>
-			
-
 			<div id="home-main">
 				<p>Welcome to Fridge Inventory App, a simple Express app.</p>
 
 				<p>
 					Your fridge has
 					<span class="num-span"><%= items %></span>
-					items from
+					<% if(items === 1) { %> item <% } else { %> items <% } %> and 
 					<span class="num-span"><%= categories %></span>
-					categories!
+					<% if(categories === 1) { %> category! <% } else { %> categories <% } %>
+					of items.
 				</p>
 
-        <div id="home-fridge-pic">
-          <img src="/images/fridge.png" alt="" />
-        </div>
+				<div id="home-fridge-pic">
+					<img src="/images/fridge.png" alt="" />
+				</div>
 			</div>
-
-			
 		</main>
 
 		<%- include("footer.ejs") %>
