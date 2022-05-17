@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+	<%- include("head.ejs") %>
+
+	<body>
+		<%- include("logo.ejs") %> <%- include("nav.ejs") %>
+		<main>
+			<div class="item-list-main">
+				<p class="list-first-p">Item list</p>
+				<% if(items_list.length > 0) { %>
+				<table>
+                    <tr>
+                        <th></th>
+                        <th>Name</th>
+                        <th>Brand</th>
+                        <th>Category</th>
+                        <th>Stock</th>
+                    </tr>
+					<% for (let i = 0; i < items_list.length; i++) { %>
+					<tr>
+						<td><a href=<%= items_list[i].url %>>pic</a></td>
+						<td><a href=<%= items_list[i].url %>><%= items_list[i].name %></a></td>
+						<td><%= items_list[i].brand %></td>
+						<% if(items_list[i].category) { %>
+						<td><a href=<%= items_list[i].category.url %>><%= items_list[i].category.name %></a> </td>
+						<% } else { %>
+						<td>-</td>
+						<% } %>
+
+						<td><%= items_list[i].stock %></td>
+					</tr>
+					<% } %>
+				</table>
+				<% } else { %>
+				<p class="empty-list-p">There are no items in your fridge!</p>
+				<% } %>
+			</div>
+		</main>
+		<%- include("footer.ejs") %>
+	</body>
+</html>
