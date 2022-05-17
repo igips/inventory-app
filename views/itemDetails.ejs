@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+	<%- include("head.ejs") %>
+	<body>
+		<%- include("logo.ejs") %> <%- include("nav.ejs") %>
+		<main>
+			<div id="item-details">
+                <p class="details-first-p"><%= item.name %></p>
+                <div id="item-details-div">
+                    <img class="item-img-large" src="https://cdn-icons-png.flaticon.com/512/1257/1257653.png" alt="">
+                    <div id="item-details-data">
+                        <p><b>Brand:</b> <%= item.brand %></p>
+                        <p><b>Category:</b>  <% if(item.category) { %> <a href=<%= item.category.url %>><%= item.category.name %></a> <% } else { %> - <% } %></p>
+                        <p><b>Stock:</b> <%= item.stock %></p>
+                    </div>
+
+                </div>
+                
+
+				
+			</div>
+		</main>
+
+		<%- include("footer.ejs") %>
+	</body>
+</html>

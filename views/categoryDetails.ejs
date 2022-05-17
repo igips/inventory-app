@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+	<%- include("head.ejs") %>
+
+	<body>
+		<%- include("logo.ejs") %> <%- include("nav.ejs") %>
+		<main>
+			<div class="item-list-main">
+				<p class="list-first-p"><%= category.name %> list</p>
+				<% if(category_items.length > 0) { %>
+				<table class="cat-table">
+                    <tr>
+                        <th class="th-details"></th>
+                        <th>Name</th>
+                        <th>Brand</th>
+                        <th class="th-details">Stock</th>
+                    </tr>
+					<% for (let i = 0; i < category_items.length; i++) { %>
+					<tr>
+						<td><a href=<%= category_items[i].url %>>pic</a></td>
+						<td><a href=<%= category_items[i].url %>><%= category_items[i].name %></a></td>
+						<td><%= category_items[i].brand %></td>
+						<td><%= category_items[i].stock %></td>
+					</tr>
+					<% } %>
+				</table>
+				<% } else { %>
+				<p class="empty-list-p">There are no items in this category!</p>
+				<% } %>
+			</div>
+		</main>
+		<%- include("footer.ejs") %>
+	</body>
+</html>
