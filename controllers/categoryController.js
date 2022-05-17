@@ -1,5 +1,6 @@
 const Category = require("../models/category");
 const Item = require("../models/item");
+const async = require("async");
 
 exports.category_list = (req, res) => {
 	Category.find({})
@@ -20,8 +21,29 @@ exports.category_list = (req, res) => {
 		});
 };
 
-exports.category_details = (req, res) => {
-	res.send("NOT IMPLEMENTED: Category details: " + req.params.id);
+exports.category_details = (req, res, next) => {
+	async.parallel(
+		{
+			category: (callback) => {
+				Category.findById(req.params.id).exec(callback);
+			},
+			category_items: (callback) => {
+				Item.find({ category: req.params.id }).exec(callback);
+			},
+		},
+		(err, results) => {
+			if (err) {
+				return next(err);
+			}
+			if (results.gente === null) {
+				const err = new Error("Category not found!");
+				err.status = 404;
+				return next(err);
+			}
+			
+			res.render("categoryDetails", { category: results.category, category_items: results.category_items });
+		}
+	);
 };
 
 exports.category_add_get = (req, res) => {
