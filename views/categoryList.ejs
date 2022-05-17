@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+	<%- include("head.ejs") %>
+
+	<body>
+		<%- include("logo.ejs") %> <%- include("nav.ejs") %>
+		<main>
+			<div class="item-list-main">
+				<p class="list-first-p">Category list</p>
+				<% if(category_list.length > 0) { %>
+				<table class="cat-table">
+                    <tr>
+                        <th>Name</th>
+                        <th>Item count</th>
+                    </tr>
+					<% for (let i = 0; i < category_list.length; i++) { %>
+					<tr>
+						<td><a href=<%= category_list[i].url %>><%= category_list[i].name %></a></td>
+						<td><%= count[i] %></td>					
+					</tr>
+					<% } %>
+				</table>
+				<% } else { %>
+				<p class="empty-list-p">There are no categories in your fridge!</p>
+				<% } %>
+			</div>
+		</main>
+		<%- include("footer.ejs") %>
+	</body>
+</html>
