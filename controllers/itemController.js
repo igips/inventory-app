@@ -1,38 +1,59 @@
 const Item = require("../models/item");
-
+const Category = require("../models/category");
+const async = require("async");
 
 exports.index = (req, res) => {
-    res.render('index', {items: 16, categories: 4});
-}
+	async.parallel(
+		{
+			item_count: (callback) => {
+				Item.countDocuments({}, callback);
+			},
+			category_count: (callback) => {
+				Category.countDocuments({}, callback);
+			},
+		},
+		(err, results) => {
+			res.render("index", { items: results.item_count, categories: results.category_count });
+		}
+	);
+};
 
-exports.items_list = (req, res) => {
-    res.send('NOT IMPLEMENTED: Items list');
-}
+exports.items_list = (req, res, next) => {
+	Item.find({})
+		.sort({ name: 1 })
+		.populate("category")
+		.exec((err, list_items) => {
+			if (err) {
+				return next(err);
+			}
+			res.render("itemsList", { items_list: list_items });
+		});
+};
 
 exports.item_details = (req, res) => {
-    res.send('NOT IMPLEMENTED: Item details: ' + req.params.id);
-}
+	res.send("NOT IMPLEMENTED: Item details: " + req.params.id);
+};
 
 exports.item_add_get = (req, res) => {
-    res.send('NOT IMPLEMENTED: Item add GET');
-}
+	res.send("NOT IMPLEMENTED: Item add GET");
+};
 
 exports.item_add_post = (req, res) => {
-    res.send('NOT IMPLEMENTED: Item add POST');
-}
+	res.send("NOT IMPLEMENTED: Item add POST");
+};
 
 exports.item_delete_get = (req, res) => {
-    res.send("NOT IMPLEMENTED: Item delete GET");
-}
+	res.send("NOT IMPLEMENTED: Item delete GET");
+};
 
 exports.item_delete_post = (req, res) => {
-    res.send("NOT IMPLEMENTED: Item delete POST");
-}
+	res.send("NOT IMPLEMENTED: Item delete POST");
+};
 
 exports.item_update_get = (req, res) => {
-    res.send("NOT IMPLEMENTED: Item update GET");
-}
+	res.send("NOT IMPLEMENTED: Item update GET");
+};
 
 exports.item_update_post = (req, res) => {
-    res.send("NOT IMPLEMENTED: Item update POST");
+	res.send("NOT IMPLEMENTED: Item update POST");
 };
