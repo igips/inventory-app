@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+	<%- include("head.ejs") %>
+
+	<body>
+		<%- include("logo.ejs") %> <%- include("nav.ejs") %>
+		<main>
+			<div class="item-list-main">
+
+				<p class="list-first-p"><%= title %> <%= category.name %> category</p>
+
+				<% if(category_items.length > 0) { %>
+
+                <p class="empty-list-p">Delete the following items before attempting to delete this category!</p>
+
+				<table class="cat-table">
+                    <tr>
+                        <th class="th-details"></th>
+                        <th>Name</th>
+                        <th>Brand</th>
+                        <th class="th-details">Stock</th>
+                    </tr>
+					<% for (let i = 0; i < category_items.length; i++) { %>
+					<tr>
+						<td><a href=<%= category_items[i].url %>>pic</a></td>
+						<td><a href=<%= category_items[i].url %>><%= category_items[i].name %></a></td>
+						<td><%= category_items[i].brand %></td>
+						<td><%= category_items[i].stock %></td>
+					</tr>
+					<% } %>
+				</table>
+				<% } else { %>
+				<p class="empty-list-p">Do you really want to delete this category?</p>
+                <div class="delete-form-div">
+                    <form method="POST" action="">
+                        <input type="hidden" name="categoryId", required="true", value="<%= category._id %>">
+                        <button type="submit" class="delete-btn-form">Delete</button>
+                    </form>
+                </div>
+                
+				<% } %>
+			</div>
+			
+		</main>
+		<%- include("footer.ejs") %>
+	</body>
+</html>
