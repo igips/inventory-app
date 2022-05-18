@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+	<%- include("head.ejs") %>
+
+	<body>
+		<%- include("logo.ejs") %> <%- include("nav.ejs") %>
+		<main>
+			<div class="item-list-main add-category-div">
+				<p class="list-first-p"><%= title %></p>
+
+                <form method="POST" action="">
+                    <label for="name">Name: </label>
+                    <input required  maxlength="30" type="text" placeholder="Dairy, Beverages etc." name="name" value="<%= category === '' ? '' : category.name  %>">
+                    <button class="submit-btn" type="submit">Submit</button>
+
+                    <% if(errors) { %>
+                        <ul class="error-ul">
+                            <% for (let i = 0; i < errors.length; i++) { %>
+                                <li>
+                                    <%= errors[i].msg %>
+                                </li>
+
+                            <% } %>    
+                        </ul>
+
+                    <% } %>
+
+                </form>
+				
+			</div>
+		</main>
+		<%- include("footer.ejs") %>
+	</body>
+</html>
