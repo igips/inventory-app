@@ -28,6 +28,10 @@
 				<p class="empty-list-p">There are no items in this category!</p>
 				<% } %>
 			</div>
+			<div class="edit-delete-div">
+				<a href="/categories/<%= category._id %>/update" class="edit-btn-cat">Edit category</a>
+				<a href="/categories/<%= category._id %>/delete" class="delete-btn-cat">Delete category</a>
+			</div>
 		</main>
 		<%- include("footer.ejs") %>
 	</body>
