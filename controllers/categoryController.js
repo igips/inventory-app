@@ -1,6 +1,7 @@
 const Category = require("../models/category");
 const Item = require("../models/item");
 const async = require("async");
+const { body, validationResult } = require("express-validator");
 
 exports.category_list = (req, res) => {
 	Category.find({})
@@ -40,19 +41,49 @@ exports.category_details = (req, res, next) => {
 				err.status = 404;
 				return next(err);
 			}
-			
+
 			res.render("categoryDetails", { category: results.category, category_items: results.category_items });
 		}
 	);
 };
 
-exports.category_add_get = (req, res) => {
-	res.send("NOT IMPLEMENTED: Category add GET");
+exports.category_add_get = (req, res, next) => {
+	res.render("categoryForm", { title: "Add category", category: "", errors: "" });
 };
 
-exports.category_add_post = (req, res) => {
-	res.send("NOT IMPLEMENTED: Category add POST");
-};
+exports.category_add_post = [
+	body("name").trim().escape(),
+	(req, res, next) => {
+		const errors = validationResult(req);
+
+		const category = new Category({ name: req.body.name });
+
+		if (!errors.isEmpty()) {
+			res.render("categoryForm", { title: "Add category", category: category, errors: errors.array() });
+			return;
+		} else {
+			const theName = req.body.name;
+
+			Category.findOne({ name: { $regex: theName, $options: "i" } }).exec((err, found_category) => {
+				if (err) {
+					return next(err);
+				}
+
+				if (found_category) {
+					res.redirect(found_category.url);
+				} else {
+					category.save((err) => {
+						if (err) {
+							return next(err);
+						}
+
+						res.redirect(category.url);
+					});
+				}
+			});
+		}
+	},
+];
 
 exports.category_delete_get = (req, res) => {
 	res.send("NOT IMPLEMENTED: Category delete GET");
