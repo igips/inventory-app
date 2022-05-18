@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+	<%- include("head.ejs") %>
+
+	<body>
+		<%- include("logo.ejs") %> <%- include("nav.ejs") %>
+		<main>
+			<div class="item-list-main add-category-div">
+				<p class="list-first-p"><%= title %></p>
+
+                <form method="POST" action="">
+                    <label for="name">Name: </label>
+                    <input required  maxlength="30" type="text" placeholder="Name of item" name="name" value="<%= item === '' ? '' : item.name  %>">
+
+                    <label for="brand">Brand:</label>
+                    <input required  maxlength="30" type="text" placeholder="Brand name" name="brand" value="<%= item === '' ? '' : item.brand  %>">
+
+                    <label for="category">Category:</label>
+                    <select name="category">
+                        <option value="" disabled selected hidden></option>
+                        <% for (let i = 0; i < categories.length; i++) { %>
+                            <% if(item !== "") { %>
+                                <option value="<%= categories[i]._id %>" selected="<%= categories[i]._id.toString() ===  item.category._id ? 'selected' : false %>"><%= categories[i].name %> </option>
+
+                            <% } else { %> 
+                                <option value="<%= categories[i]._id %>"><%= categories[i].name %></option>
+                            
+                            <% } %> 
+                        <% } %> 
+                    </select>
+                    <label for="stock">Stock:</label>
+                    <input type="number" placeholder="1" name="stock" value="<%= item === '' ? '' : item.stock  %>" max="100" required>
+
+                    <button class="submit-btn" type="submit">Submit</button>
+
+                    <% if(errors) { %>
+                        <ul class="error-ul">
+                            <% for (let i = 0; i < errors.length; i++) { %>
+                                <li>
+                                    <%= errors[i].msg %>
+                                </li>
+
+                            <% } %>    
+                        </ul>
+
+                    <% } %>
+
+                </form>
+				
+			</div>
+		</main>
+		<%- include("footer.ejs") %>
+	</body>
+</html>
