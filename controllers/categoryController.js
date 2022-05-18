@@ -85,12 +85,65 @@ exports.category_add_post = [
 	},
 ];
 
-exports.category_delete_get = (req, res) => {
-	res.send("NOT IMPLEMENTED: Category delete GET");
+exports.category_delete_get = (req, res, next) => {
+	async.parallel(
+		{
+			category: (callback) => {
+				Category.findById(req.params.id).exec(callback);
+			},
+			category_items: (callback) => {
+				Item.find({ category: req.params.id }).exec(callback);
+			},
+		},
+		(err, results) => {
+			if (err) {
+				return next(err);
+			}
+			if (results.category === null) {
+				res.redirect("/categories");
+			}
+
+			res.render("categoryDelete", {
+				title: "Delete",
+				category: results.category,
+				category_items: results.category_items,
+			});
+		}
+	);
 };
 
-exports.category_delete_post = (req, res) => {
-	res.send("NOT IMPLEMENTED: Category delete POST");
+exports.category_delete_post = (req, res, next) => {
+	async.parallel(
+		{
+			category: (callback) => {
+				Category.findById(req.body.categoryId).exec(callback);
+			},
+			category_items: (callback) => {
+				Item.find({ category: req.body.categoryId }).exec(callback);
+			},
+		},
+		(err, results) => {
+			if (err) {
+				return next(err);
+			}
+
+			if (results.category_items.length > 0) {
+				res.render("categoryDelete", {
+					title: "Delete",
+					category: results.category,
+					category_items: results.category_items,
+				});
+				return;
+			} else {
+				Category.findByIdAndRemove(req.body.categoryId, function deleteCategory(err) {
+					if (err) {
+						return next(err);
+					}
+					res.redirect("/categories");
+				});
+			}
+		}
+	);
 };
 
 exports.category_update_get = (req, res) => {
