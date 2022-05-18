@@ -142,6 +142,7 @@ footer a:hover {
 
 .empty-list-p {
 	font-size: 20px;
+	margin-bottom: 30px;
 }
 
 table {
@@ -212,6 +213,92 @@ th {
 	color: blue;
 }
 
+#item-details-container {
+	display: flex;
+	flex-direction: column;
+	gap: 35px;
+}
+
+.edit-delete-div {
+	display: flex;
+	justify-content: center;
+	gap: 10px;
+}
+
+.edit-btn, .delete-btn, .edit-btn-cat, .delete-btn-cat, .submit-btn {
+	font-size: 12px;
+	color: white;
+	padding: 5px 12px 5px 12px;
+	width: 80px;
+	border-radius: 3px;
+}
+
+.edit-btn-cat, .delete-btn-cat, .submit-btn {
+	width: 100px;
+	text-align: center;
+	padding: 8px 15px 8px 15px;
+
+}
+
+.edit-btn, .edit-btn-cat, .submit-btn {
+	background-color: green;
+}
+
+.delete-btn, .delete-btn-cat {
+	background-color: red;
+}
+
+.submit-btn {
+	border: none;
+	margin-left: auto;
+	margin-right: auto;
+	width: 100%;
+	margin-top: 5px;
+}
+
+.error-ul {
+	display: flex;
+    justify-content: center;
+    font-size: 13px;
+    margin-top: 30px;
+    color: red;
+}
+
+form {
+	font-size: 12px;
+	display: flex;
+	flex-direction: column;
+	width: 200px;
+}
+
+label {
+	text-align: left;
+	margin-bottom: 3px;
+	margin-top: 3px;
+}
+
+.add-category-div {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+
+input, select {
+	border: 1px solid #ced4da;
+	border-radius: 3px;
+	padding-left: 2px;
+	height: 25px;
+	outline: none;
+}
+
+option:first {
+    color: #999;
+}
+
+
+
+
+ 
 @media (max-width: 785px) {
 	#home-main {
 		font-size: 26px;
@@ -242,6 +329,16 @@ th {
 	.item-img-large {
 		width: 150px;
 		height: 150px;
+	}
+
+	#logo-div {
+		padding-left: 5px;
+		padding-right: 5px;
+	}
+
+	#nav {
+		padding-left: 10px;
+		padding-right: 10px;
 	}
 }
 
