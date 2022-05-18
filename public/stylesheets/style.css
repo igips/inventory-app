@@ -225,7 +225,7 @@ th {
 	gap: 10px;
 }
 
-.edit-btn, .delete-btn, .edit-btn-cat, .delete-btn-cat, .submit-btn {
+.edit-btn, .delete-btn, .edit-btn-cat, .delete-btn-cat, .submit-btn, .delete-btn-form {
 	font-size: 12px;
 	color: white;
 	padding: 5px 12px 5px 12px;
@@ -233,7 +233,7 @@ th {
 	border-radius: 3px;
 }
 
-.edit-btn-cat, .delete-btn-cat, .submit-btn {
+.edit-btn-cat, .delete-btn-cat, .submit-btn, .delete-btn-form {
 	width: 100px;
 	text-align: center;
 	padding: 8px 15px 8px 15px;
@@ -244,11 +244,11 @@ th {
 	background-color: green;
 }
 
-.delete-btn, .delete-btn-cat {
+.delete-btn, .delete-btn-cat, .delete-btn-form {
 	background-color: red;
 }
 
-.submit-btn {
+.submit-btn, .delete-btn-form {
 	border: none;
 	margin-left: auto;
 	margin-right: auto;
@@ -295,9 +295,14 @@ option:first {
     color: #999;
 }
 
+.delete-form-div {
+	display: flex;
+    justify-content: center;
+}
 
-
-
+button {
+	cursor: pointer;
+}
  
 @media (max-width: 785px) {
 	#home-main {
