@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+	<%- include("head.ejs") %>
+
+	<body>
+		<%- include("logo.ejs") %> <%- include("nav.ejs") %>
+		<main>
+			<div class="item-list-main">
+
+				<p class="list-first-p"><%= title %> <%= item.name %> </p>
+
+				<p class="empty-list-p">Do you really want to delete this item?</p>
+
+                <div class="delete-form-div">
+                    <form method="POST" action="">
+                        <input type="hidden" name="itemId", required="true", value="<%= item._id %>">
+						<input type="hidden" name="fileName", required="true", value="<%= item.picLoc %>">
+                        <button type="submit" class="delete-btn-form">Delete</button>
+                    </form>
+                </div>
+                
+			</div>
+			
+		</main>
+		<%- include("footer.ejs") %>
+	</body>
+</html>
