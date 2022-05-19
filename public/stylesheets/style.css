@@ -173,6 +173,20 @@ th {
 
 td:first-child {
 	width: 50px;
+	vertical-align: middle;
+}
+
+td:first-child a {
+	display: flex;
+    width: 100%;
+    height: 100%;
+    justify-content: center;
+    align-items: center;
+}
+
+td img {
+	height: 40px;
+	width: 40px;
 }
 
 td:last-child {
