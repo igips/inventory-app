@@ -8,7 +8,10 @@
                 <p class="details-first-p"><%= item.name %></p>
                 <div id="item-details-container">
                     <div id="item-details-div">
-                        <img class="item-img-large" src="https://cdn-icons-png.flaticon.com/512/1257/1257653.png" alt="">
+                        <% if(item.picLoc) { %>
+                            <img class="item-img-large" src="/images/<%= item.picLoc %>" alt="">
+                        <% } %>    
+                       
                         <div id="item-details-data">
                             <p><b>Brand:</b> <%= item.brand %></p>
                             <p><b>Category:</b>  <% if(item.category) { %> <a href=<%= item.category.url %>><%= item.category.name %></a> <% } else { %> - <% } %></p>
