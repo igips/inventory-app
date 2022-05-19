@@ -17,7 +17,11 @@
                     </tr>
 					<% for (let i = 0; i < category_items.length; i++) { %>
 					<tr>
-						<td><a href=<%= category_items[i].url %>>pic</a></td>
+						<% if(category_items[i].picLoc) { %>
+							<td><a href=<%= category_items[i].url %>> <img src="/images/<%= category_items[i].picLoc %>" alt=""> </a></td>
+						<% } else { %>
+							<td>-</td>
+						<% } %>	
 						<td><a href=<%= category_items[i].url %>><%= category_items[i].name %></a></td>
 						<td><%= category_items[i].brand %></td>
 						<td><%= category_items[i].stock %></td>
