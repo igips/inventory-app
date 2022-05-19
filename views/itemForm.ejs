@@ -8,7 +8,7 @@
 			<div class="item-list-main add-category-div">
 				<p class="list-first-p"><%= title %></p>
 
-                <form method="POST" action="">
+                <form method="POST" action="" enctype="multipart/form-data">
                     <label for="name">Name: </label>
                     <input required  maxlength="30" type="text" placeholder="Name of item" name="name" value="<%= item === '' ? '' : item.name  %>">
 
@@ -20,16 +20,21 @@
                         <option value="" disabled selected hidden></option>
                         <% for (let i = 0; i < categories.length; i++) { %>
                             <% if(item !== "") { %>
-                                <option value="<%= categories[i]._id %>" selected="<%= categories[i]._id.toString() ===  item.category._id ? 'selected' : false %>"><%= categories[i].name %> </option>
-
+                                <% if(item.category && (categories[i]._id.toString() ===  item.category._id.toString() || categories[i]._id.toString() === item.category)) { %>
+                                <option value="<%= categories[i]._id %>" selected><%= categories[i].name %> </option>
+                                <% } else { %> 
+                                    <option value="<%= categories[i]._id %>"><%= categories[i].name %></option>
+                                <% } %>     
                             <% } else { %> 
                                 <option value="<%= categories[i]._id %>"><%= categories[i].name %></option>
-                            
                             <% } %> 
                         <% } %> 
                     </select>
                     <label for="stock">Stock:</label>
                     <input type="number" placeholder="1" name="stock" value="<%= item === '' ? '' : item.stock  %>" max="100" required>
+
+                    <label for="uploadImage">Image:</label>
+                    <input type="file" name="uploadImage" accept="image/*">
 
                     <button class="submit-btn" type="submit">Submit</button>
 
