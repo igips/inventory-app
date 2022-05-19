@@ -105,6 +105,7 @@ exports.item_add_post = [
 					if (err) {
 						return next(err);
 					}
+					console.log(found_item);
 
 					if (found_item) {
 						if (
@@ -188,6 +189,12 @@ exports.item_delete_post = (req, res, next) => {
 			}
 		});
 
+		fs.unlink(`bin/public/images/${req.body.fileName}`, (err) => {
+			if (err) {
+				console.log(err);
+			}
+		});
+
 		res.redirect("/items");
 	});
 };
@@ -255,6 +262,11 @@ exports.item_update_post = [
 					}
 				});
 
+				fs.unlink(`bin/public/images/${result.picLoc}`, (err) => {
+					if (err) {
+						console.log(err);
+					}
+				});
 			}
 
 			if (!req.file && result.picLoc) {
