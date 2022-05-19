@@ -2,6 +2,10 @@ const Item = require("../models/item");
 const Category = require("../models/category");
 const async = require("async");
 const { body, validationResult } = require("express-validator");
+const multer = require("multer");
+const upload = multer({ dest: "public/images" });
+const path = require("path");
+const fs = require("fs");
 
 exports.index = (req, res) => {
 	async.parallel(
@@ -60,6 +64,7 @@ exports.item_add_get = (req, res, next) => {
 };
 
 exports.item_add_post = [
+	upload.single("uploadImage"),
 	body("name").trim().escape(),
 	body("brand").trim().escape(),
 	body("category").escape(),
@@ -67,21 +72,18 @@ exports.item_add_post = [
 	(req, res, next) => {
 		const errors = validationResult(req);
 
-		let item;
+		let item = new Item({
+			name: req.body.name,
+			brand: req.body.brand,
+			stock: req.body.stock,
+		});
 
 		if (req.body.category !== "") {
-			item = new Item({
-				name: req.body.name,
-				brand: req.body.brand,
-				category: req.body.category,
-				stock: req.body.stock,
-			});
-		} else {
-			item = new Item({
-				name: req.body.name,
-				brand: req.body.brand,
-				stock: req.body.stock,
-			});
+			item.category = req.body.category;
+		}
+
+		if (req.file) {
+			item.picLoc = req.file.filename;
 		}
 
 		if (!errors.isEmpty()) {
@@ -107,21 +109,39 @@ exports.item_add_post = [
 					if (found_item) {
 						if (
 							(found_item.category && req.body.category !== found_item.category) ||
-							found_item.stock !== req.body.stock
+							found_item.stock !== req.body.stock ||
+							(req.file.filename !== found_item.picLoc && req.file.filename)
 						) {
-							Item.findByIdAndUpdate(
-								found_item._id,
-								{
-									stock: req.body.stock,
-									category: req.body.category !== "" ? req.body.category : found_item.category,
-								},
-								(err, theItem) => {
-									if (err) {
-										return next(err);
+							if (req.file.filename) {
+								Item.findByIdAndUpdate(
+									found_item._id,
+									{
+										stock: req.body.stock,
+										category: req.body.category !== "" ? req.body.category : found_item.category,
+										picLoc: req.body.filename,
+									},
+									(err, theItem) => {
+										if (err) {
+											return next(err);
+										}
+										res.redirect(theItem.url);
 									}
-									res.redirect(theItem.url);
-								}
-							);
+								);
+							} else {
+								Item.findByIdAndUpdate(
+									found_item._id,
+									{
+										stock: req.body.stock,
+										category: req.body.category !== "" ? req.body.category : found_item.category,
+									},
+									(err, theItem) => {
+										if (err) {
+											return next(err);
+										}
+										res.redirect(theItem.url);
+									}
+								);
+							}
 						} else {
 							res.redirect(found_item.url);
 						}
@@ -140,18 +160,129 @@ exports.item_add_post = [
 	},
 ];
 
-exports.item_delete_get = (req, res) => {
-	res.send("NOT IMPLEMENTED: Item delete GET");
+exports.item_delete_get = (req, res, next) => {
+	Item.findById(req.params.id).exec((err, result) => {
+		if (err) {
+			return next(err);
+		}
+		if (result === null) {
+			res.redirect("/items");
+		}
+
+		res.render("itemDelete", {
+			title: "Delete",
+			item: result,
+		});
+	});
 };
 
-exports.item_delete_post = (req, res) => {
-	res.send("NOT IMPLEMENTED: Item delete POST");
+exports.item_delete_post = (req, res, next) => {
+	Item.findByIdAndRemove(req.body.itemId, function deleteItem(err) {
+		if (err) {
+			return next(err);
+		}
+
+		fs.unlink(`public/images/${req.body.fileName}`, (err) => {
+			if (err) {
+				console.log(err);
+			}
+		});
+
+		res.redirect("/items");
+	});
 };
 
-exports.item_update_get = (req, res) => {
-	res.send("NOT IMPLEMENTED: Item update GET");
+exports.item_update_get = (req, res, next) => {
+	async.parallel(
+		{
+			item: (callback) => {
+				Item.findById(req.params.id).populate("category").exec(callback);
+			},
+			categories: (callback) => {
+				Category.find(callback);
+			},
+		},
+		(err, results) => {
+			if (err) {
+				return next(err);
+			}
+			if (results.item === null) {
+				const err = new Error("Item not found!");
+				err.status = 404;
+				return next(err);
+			}
+			res.render("itemForm", {
+				title: "Edit item",
+				categories: results.categories,
+				item: results.item,
+				errors: "",
+			});
+		}
+	);
 };
 
-exports.item_update_post = (req, res) => {
-	res.send("NOT IMPLEMENTED: Item update POST");
-};
+exports.item_update_post = [
+	upload.single("uploadImage"),
+	body("name").trim().escape(),
+	body("brand").trim().escape(),
+	body("category").escape(),
+	body("stock").trim().escape(),
+	(req, res, next) => {
+		const errors = validationResult(req);
+
+		Item.findById(req.params.id).exec((err, result) => {
+			if (err) {
+				return next(err);
+			}
+
+			let item = new Item({
+				name: req.body.name,
+				brand: req.body.brand,
+				stock: req.body.stock,
+				_id: req.params.id,
+			});
+
+			if (req.body.category !== "") {
+				item.category = req.body.category;
+			}
+
+			if (req.file) {
+				item.picLoc = req.file.filename;
+
+				fs.unlink(`public/images/${result.picLoc}`, (err) => {
+					if (err) {
+						console.log(err);
+					}
+				});
+
+			}
+
+			if (!req.file && result.picLoc) {
+				item.picLoc = result.picLoc;
+			}
+
+			if (!errors.isEmpty()) {
+				Category.find({}).exec((err, result) => {
+					if (err) {
+						return next(err);
+					}
+
+					res.render("itemForm", {
+						title: "Edit item",
+						categories: result,
+						item: item,
+						errors: errors.array(),
+					});
+					return;
+				});
+			} else {
+				Item.findByIdAndUpdate(req.params.id, item, {}, (err, theItem) => {
+					if (err) {
+						return next(err);
+					}
+					res.redirect(theItem.url);
+				});
+			}
+		});
+	},
+];
