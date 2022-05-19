@@ -146,10 +146,38 @@ exports.category_delete_post = (req, res, next) => {
 	);
 };
 
-exports.category_update_get = (req, res) => {
-	res.send("NOT IMPLEMENTED: Category update GET");
+exports.category_update_get = (req, res, next) => {
+	Category.findById(req.params.id).exec((err, result) => {
+		if (err) {
+			return next(err);
+		}
+		if (result === null) {
+			const err = new Error("Category not found!");
+			err.status = 404;
+			return next(err);
+		}
+
+		res.render("categoryForm", { title: "Edit category", category: result, errors: "" });
+	});
 };
 
-exports.category_update_post = (req, res) => {
-	res.send("NOT IMPLEMENTED: Category update POST");
-};
+exports.category_update_post = [
+	body("name").trim().escape(),
+	(req, res, next) => {
+		const errors = validationResult(req);
+
+		const category = new Category({ name: req.body.name, _id: req.params.id });
+
+		if (!errors.isEmpty()) {
+			res.render("categoryForm", { title: "Edit category", category: category, errors: errors.array() });
+			return;
+		} else {
+			Category.findByIdAndUpdate(req.params.id, category, {}, (err, theCategory) => {
+				if (err) {
+					return next(err);
+				}
+				res.redirect(theCategory.url);
+			});
+		}
+	},
+];
