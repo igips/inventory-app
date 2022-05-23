@@ -135,6 +135,7 @@ exports.item_add_post = [
 										if (err) {
 											return next(err);
 										}
+
 										res.redirect(theItem.url);
 									}
 								);
@@ -271,17 +272,17 @@ exports.item_update_post = [
 					contentType: "image/png",
 				};
 
-				fs.unlink(`public/images/${result.picLoc.data}`, (err) => {
-					if (err) {
-						console.log(err);
-					}
-				});
+				// fs.unlink(`public/images/${result.picLoc.data}`, (err) => {
+				// 	if (err) {
+				// 		console.log(err);
+				// 	}
+				// });
 
-				fs.unlink(`bin/public/images/${result.picLoc.data}`, (err) => {
-					if (err) {
-						console.log(err);
-					}
-				});
+				// fs.unlink(`bin/public/images/${result.picLoc.data}`, (err) => {
+				// 	if (err) {
+				// 		console.log(err);
+				// 	}
+				// });
 			}
 
 			if (!req.file && result.picLoc) {
