@@ -9,7 +9,7 @@
                 <div id="item-details-container">
                     <div id="item-details-div">
                         <% if(item.picLoc) { %>
-                            <img class="item-img-large" src="/images/<%= item.picLoc %>" alt="">
+                            <img class="item-img-large" src="data:image/<%=item.picLoc.contentType%>;base64,<%=item.picLoc.data.toString('base64')%>">
                         <% } %>    
                        
                         <div id="item-details-data">

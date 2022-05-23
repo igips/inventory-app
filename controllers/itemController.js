@@ -83,7 +83,12 @@ exports.item_add_post = [
 		}
 
 		if (req.file) {
-			item.picLoc = req.file.filename;
+			item.picLoc = {
+				data: fs.readFileSync(
+					path.join("public/images/" + req.file.filename)
+				),
+				contentType: "image/png",
+			};
 		}
 
 		if (!errors.isEmpty()) {
@@ -111,7 +116,7 @@ exports.item_add_post = [
 						if (
 							(found_item.category && req.body.category !== found_item.category) ||
 							found_item.stock !== req.body.stock ||
-							(req.file.filename !== found_item.picLoc && req.file.filename)
+							(req.file.filename !== found_item.picLoc.data && req.file.filename)
 						) {
 							if (req.file.filename) {
 								Item.findByIdAndUpdate(
@@ -119,7 +124,12 @@ exports.item_add_post = [
 									{
 										stock: req.body.stock,
 										category: req.body.category !== "" ? req.body.category : found_item.category,
-										picLoc: req.body.filename,
+										picLoc: {
+											data: fs.readFileSync(
+												path.join("public/images/" + req.file.filename)
+											),
+											contentType: "image/png",
+										},
 									},
 									(err, theItem) => {
 										if (err) {
@@ -254,15 +264,20 @@ exports.item_update_post = [
 			}
 
 			if (req.file) {
-				item.picLoc = req.file.filename;
+				item.picLoc = {
+					data: fs.readFileSync(
+						path.join("public/images/" + req.file.filename)
+					),
+					contentType: "image/png",
+				};
 
-				fs.unlink(`public/images/${result.picLoc}`, (err) => {
+				fs.unlink(`public/images/${result.picLoc.data}`, (err) => {
 					if (err) {
 						console.log(err);
 					}
 				});
 
-				fs.unlink(`bin/public/images/${result.picLoc}`, (err) => {
+				fs.unlink(`bin/public/images/${result.picLoc.data}`, (err) => {
 					if (err) {
 						console.log(err);
 					}

@@ -7,7 +7,7 @@ const ItemSchema = new Schema ({
     brand: {type: String, required: true, maxlength: 30},
     category: {type: Schema.Types.ObjectId, ref: "Category"},
     stock: {type: Number, required: true, maxlength: 3},
-    picLoc: {type: String}
+    picLoc: {data: Buffer, contentType: String}
 });
 
 ItemSchema.virtual("url").get(function () {

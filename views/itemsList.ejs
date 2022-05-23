@@ -19,7 +19,7 @@
 					<% for (let i = 0; i < items_list.length; i++) { %>
 					<tr>
 						<% if(items_list[i].picLoc) { %>
-							<td><a href=<%= items_list[i].url %>> <img src="/images/<%= items_list[i].picLoc %>" alt=""> </a></td>
+							<td><a href=<%= items_list[i].url %>><img  src="data:image/<%=items_list[i].picLoc.contentType%>;base64,<%=items_list[i].picLoc.data.toString('base64')%>"></a></td>
 						<% } else { %>
 							<td>-</td>
 						<% } %>	
