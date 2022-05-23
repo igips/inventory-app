@@ -5,6 +5,9 @@ const cookieParser = require("cookie-parser");
 const logger = require("morgan");
 const compression = require('compression');
 const helmet = require('helmet');
+const  bodyParser = require('body-parser');
+const fs = require('fs');
+
 
 
 const indexRouter = require("./routes/index");
@@ -21,6 +24,10 @@ const db = mongoose.connection;
 db.on("error", console.error.bind(console, "MongoDB connection error:"));
 
 app.set("views", path.join(__dirname, "views"));
+
+app.use(bodyParser.urlencoded({ extended: false }))
+app.use(bodyParser.json())
+
 app.set("view engine", "ejs");
 
 app.use(helmet());
