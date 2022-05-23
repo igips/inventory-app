@@ -136,6 +136,18 @@ exports.item_add_post = [
 											return next(err);
 										}
 
+										fs.unlink(`public/images/${req.file.filename}`, (err) => {
+											if (err) {
+												console.log(err);
+											}
+										});
+					
+										fs.unlink(`bin/public/images/${req.file.filename}`, (err) => {
+											if (err) {
+												console.log(err);
+											}
+										});
+
 										res.redirect(theItem.url);
 									}
 								);
@@ -162,6 +174,18 @@ exports.item_add_post = [
 							if (err) {
 								return next(err);
 							}
+
+							fs.unlink(`public/images/${req.file.filename}`, (err) => {
+								if (err) {
+									console.log(err);
+								}
+							});
+		
+							fs.unlink(`bin/public/images/${req.file.filename}`, (err) => {
+								if (err) {
+									console.log(err);
+								}
+							});
 
 							res.redirect(item.url);
 						});
@@ -193,18 +217,6 @@ exports.item_delete_post = (req, res, next) => {
 		if (err) {
 			return next(err);
 		}
-
-		fs.unlink(`public/images/${req.body.fileName}`, (err) => {
-			if (err) {
-				console.log(err);
-			}
-		});
-
-		fs.unlink(`bin/public/images/${req.body.fileName}`, (err) => {
-			if (err) {
-				console.log(err);
-			}
-		});
 
 		res.redirect("/items");
 	});
@@ -272,17 +284,6 @@ exports.item_update_post = [
 					contentType: "image/png",
 				};
 
-				// fs.unlink(`public/images/${result.picLoc.data}`, (err) => {
-				// 	if (err) {
-				// 		console.log(err);
-				// 	}
-				// });
-
-				// fs.unlink(`bin/public/images/${result.picLoc.data}`, (err) => {
-				// 	if (err) {
-				// 		console.log(err);
-				// 	}
-				// });
 			}
 
 			if (!req.file && result.picLoc) {
@@ -301,6 +302,19 @@ exports.item_update_post = [
 						item: item,
 						errors: errors.array(),
 					});
+
+					fs.unlink(`public/images/${req.file.filename}`, (err) => {
+						if (err) {
+							console.log(err);
+						}
+					});
+
+					fs.unlink(`bin/public/images/${req.file.filename}`, (err) => {
+						if (err) {
+							console.log(err);
+						}
+					});
+
 					return;
 				});
 			} else {
@@ -308,6 +322,19 @@ exports.item_update_post = [
 					if (err) {
 						return next(err);
 					}
+
+					fs.unlink(`public/images/${req.file.filename}`, (err) => {
+						if (err) {
+							console.log(err);
+						}
+					});
+
+					fs.unlink(`bin/public/images/${req.file.filename}`, (err) => {
+						if (err) {
+							console.log(err);
+						}
+					});
+
 					res.redirect(theItem.url);
 				});
 			}
