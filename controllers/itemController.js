@@ -293,21 +293,22 @@ exports.item_update_post = [
 						categories: result,
 						item: item,
 						errors: errors.array(),
+						
 					});
 
-					if (req.file.filename) {
-						fs.unlink(`public/images/${req.file.filename}`, (err) => {
-							if (err) {
-								console.log(err);
-							}
-						});
+					// if (req.file.filename) {
+					// 	fs.unlink(`public/images/${req.file.filename}`, (err) => {
+					// 		if (err) {
+					// 			console.log(err);
+					// 		}
+					// 	});
 
-						fs.unlink(`bin/public/images/${req.file.filename}`, (err) => {
-							if (err) {
-								console.log(err);
-							}
-						});
-					}
+					// 	fs.unlink(`bin/public/images/${req.file.filename}`, (err) => {
+					// 		if (err) {
+					// 			console.log(err);
+					// 		}
+					// 	});
+					// }
 
 					return;
 				});
@@ -317,19 +318,20 @@ exports.item_update_post = [
 						return next(err);
 					}
 
-					if (req.file.filename) {
-						fs.unlink(`public/images/${req.file.filename}`, (err) => {
-							if (err) {
-								console.log(err);
-							}
-						});
+					// if (req.file.filename) {
+					// 	fs.unlink(`public/images/${req.file.filename}`, (err) => {
+			
+					// 		if (err) {
+					// 			console.log(err);
+					// 		}
+					// 	});
 
-						fs.unlink(`bin/public/images/${req.file.filename}`, (err) => {
-							if (err) {
-								console.log(err);
-							}
-						});
-					}
+					// 	fs.unlink(`bin/public/images/${req.file.filename}`, (err) => {
+					// 		if (err) {
+					// 			console.log(err);
+					// 		}
+					// 	});
+					// }
 
 					res.redirect(theItem.url);
 				});
