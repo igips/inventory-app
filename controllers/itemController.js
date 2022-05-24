@@ -285,7 +285,7 @@ exports.item_update_post = [
 
 			}
 
-			if (!req.file && result.picLoc) {
+			if (!req.file && result.picLoc.data) {
 				item.picLoc = result.picLoc;
 			}
 
