@@ -8,7 +8,7 @@
                 <p class="details-first-p"><%= item.name %></p>
                 <div id="item-details-container">
                     <div id="item-details-div">
-                        <% if(item.picLoc) { %>
+                        <% if(item.picLoc.data) { %>
                             <img class="item-img-large" src="data:image/<%=item.picLoc.contentType%>;base64,<%=item.picLoc.data.toString('base64')%>">
                         <% } %>    
                        

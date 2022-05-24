@@ -17,7 +17,7 @@
                     </tr>
 					<% for (let i = 0; i < category_items.length; i++) { %>
 					<tr>
-						<% if(category_items[i].picLoc) { %>
+						<% if(category_items[i].picLoc.data) { %>
 							<td><a href=<%= category_items[i].url %>> <img  src="data:image/<%=category_items[i].picLoc.contentType%>;base64,<%=category_items[i].picLoc.data.toString('base64')%>"> </a></td>
 						<% } else { %>
 							<td>-</td>
