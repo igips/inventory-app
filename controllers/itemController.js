@@ -110,7 +110,6 @@ exports.item_add_post = [
 					if (err) {
 						return next(err);
 					}
-					console.log(found_item);
 
 					if (found_item) {
 						if (
