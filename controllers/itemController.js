@@ -131,17 +131,17 @@ exports.item_add_post = [
 											return next(err);
 										}
 
-										fs.unlink(`public/images/${req.file.filename}`, (err) => {
-											if (err) {
-												console.log(err);
-											}
-										});
+										// fs.unlink(`public/images/${req.file.filename}`, (err) => {
+										// 	if (err) {
+										// 		console.log(err);
+										// 	}
+										// });
 
-										fs.unlink(`bin/public/images/${req.file.filename}`, (err) => {
-											if (err) {
-												console.log(err);
-											}
-										});
+										// fs.unlink(`bin/public/images/${req.file.filename}`, (err) => {
+										// 	if (err) {
+										// 		console.log(err);
+										// 	}
+										// });
 
 										res.redirect(theItem.url);
 									}
@@ -170,17 +170,17 @@ exports.item_add_post = [
 								return next(err);
 							}
 
-							fs.unlink(`public/images/${req.file.filename}`, (err) => {
-								if (err) {
-									console.log(err);
-								}
-							});
+							// fs.unlink(`public/images/${req.file.filename}`, (err) => {
+							// 	if (err) {
+							// 		console.log(err);
+							// 	}
+							// });
 
-							fs.unlink(`bin/public/images/${req.file.filename}`, (err) => {
-								if (err) {
-									console.log(err);
-								}
-							});
+							// fs.unlink(`bin/public/images/${req.file.filename}`, (err) => {
+							// 	if (err) {
+							// 		console.log(err);
+							// 	}
+							// });
 
 							res.redirect(item.url);
 						});
@@ -293,7 +293,7 @@ exports.item_update_post = [
 						categories: result,
 						item: item,
 						errors: errors.array(),
-						
+
 					});
 
 					// if (req.file.filename) {
