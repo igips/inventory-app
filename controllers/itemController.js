@@ -103,7 +103,7 @@ exports.item_add_post = [
 			const theName = req.body.name;
 			const theBrand = req.body.brand;
 
-			Item.findOne({ name: { $regex: theName, $options: "i" }, brand: { $regex: theBrand, $options: "i" } }).exec(
+			Item.findOne({ name: { $regex: "^" + theName + "$", $options: "i" }, brand: { $regex: "^" + theBrand + "$", $options: "i" } }).exec(
 				(err, found_item) => {
 					if (err) {
 						return next(err);

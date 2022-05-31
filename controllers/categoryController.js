@@ -64,7 +64,7 @@ exports.category_add_post = [
 		} else {
 			const theName = req.body.name;
 
-			Category.findOne({ name: { $regex: theName, $options: "i" } }).exec((err, found_category) => {
+			Category.findOne({ name: { $regex: "^" + theName + "$", $options: "i" } }).exec((err, found_category) => {
 				if (err) {
 					return next(err);
 				}
